@@ -107,9 +107,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="algebra-lineal-consideraciones-numericas.html"><a href="algebra-lineal-consideraciones-numericas.html"><i class="fa fa-check"></i><b>2</b> Algebra lineal: consideraciones numéricas</a><ul>
-<li class="chapter" data-level="2.0.1" data-path="algebra-lineal-consideraciones-numericas.html"><a href="algebra-lineal-consideraciones-numericas.html#como-resolver-sistemas-triangulares"><i class="fa fa-check"></i><b>2.0.1</b> Como resolver sistemas triangulares</a></li>
-<li class="chapter" data-level="2.0.2" data-path="algebra-lineal-consideraciones-numericas.html"><a href="algebra-lineal-consideraciones-numericas.html#implementando-la-solucion-en-python3."><i class="fa fa-check"></i><b>2.0.2</b> Implementando la solución en Python3.</a></li>
-<li class="chapter" data-level="2.0.3" data-path="algebra-lineal-consideraciones-numericas.html"><a href="algebra-lineal-consideraciones-numericas.html#eliminacion-gaussiana"><i class="fa fa-check"></i><b>2.0.3</b> Eliminación Gaussiana</a></li>
+<li class="chapter" data-level="2.1" data-path="algebra-lineal-consideraciones-numericas.html"><a href="algebra-lineal-consideraciones-numericas.html#como-resolver-sistemas-triangulares"><i class="fa fa-check"></i><b>2.1</b> Como resolver sistemas triangulares</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="algebra-lineal-consideraciones-numericas.html"><a href="algebra-lineal-consideraciones-numericas.html#implementando-la-solucion-en-python3."><i class="fa fa-check"></i><b>2.1.1</b> Implementando la solución en Python3.</a></li>
+<li class="chapter" data-level="2.1.2" data-path="algebra-lineal-consideraciones-numericas.html"><a href="algebra-lineal-consideraciones-numericas.html#eliminacion-gaussiana"><i class="fa fa-check"></i><b>2.1.2</b> Eliminación Gaussiana</a></li>
+</ul></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -146,26 +147,26 @@ a_{n1}x_1+a_{12}x_2+\cdots + a_{nn}x_n = b_n
 <p><span class="math display">\[
 Ax = b
 \]</span></p>
-<p>donde <span class="math display">\[A\]</span> es una matriz real cuadrada de <span class="math display">\[n\times n\]</span>. Recordemos que este sistema tiene solución si y solo sí <span class="math display">\[det(A)\neq 0\]</span>, en cuyo caso, además la solución es única.</p>
-<p>En principio, si <span class="math display">\[det(A)\neq 0\]</span>, podemos usar la regla de Cramer para calcular la solución <span class="math display">\[x  = A^{-1}b\]</span>. Luego, teoricamente tenemos un algoritmo para resolver sistemas cuadrados:</p>
-<p>a.- Calcule el determinante de <span class="math display">\[A\]</span>.<br />
-b.- Si el determinante es distinto de <span class="math display">\[0\]</span>, aplicar la regla de Cramer para calcular <span class="math display">\[x_i\]</span>:</p>
+<p>donde <span class="math inline">\(A\)</span> es una matriz real cuadrada de <span class="math inline">\(n\times n\)</span>. Recordemos que este sistema tiene solución si y solo sí <span class="math inline">\(det(A)\neq 0\)</span>, en cuyo caso, además la solución es única.</p>
+<p>En principio, si <span class="math inline">\(det(A)\neq 0\)</span>, podemos usar la regla de Cramer para calcular la solución <span class="math inline">\(x = A^{-1}b\)</span>. Luego, teoricamente tenemos un algoritmo para resolver sistemas cuadrados:</p>
+<p>a.- Calcule el determinante de <span class="math inline">\(A\)</span>.<br />
+b.- Si el determinante es distinto de <span class="math inline">\(0\)</span>, aplicar la regla de Cramer para calcular <span class="math inline">\(x_i\)</span>:</p>
 <p><span class="math display">\[
 x_i = \frac{det(A_i)}{det(A)}
 \]</span></p>
-<p>donde <span class="math display">\[A_i\]</span> se obtiene de reemplazar la <span class="math display">\[i\]</span>-ésima columna de <span class="math display">\[A\]</span> por <span class="math display">\[b\]</span>. <strong>La pregunta natural que aparece al considerar esta fórmula es: ¿Qué tan rápido es este algoritmo?</strong></p>
+<p>donde <span class="math inline">\(A_i\)</span> se obtiene de reemplazar la <span class="math inline">\(i\)</span>-ésima columna de <span class="math inline">\(A\)</span> por <span class="math inline">\(b\)</span>. <strong>La pregunta natural que aparece al considerar esta fórmula es: ¿Qué tan rápido es este algoritmo?</strong></p>
 <p>El problema de la regla de Cramer es que calcular el determinante de manera directa, usando por ejemplo la definición,</p>
 <p><span class="math display">\[
 det(A) = \sum_{i=1}^{n} a_{ij}(-1)^{i+1}det(A_{ij})
 \]</span></p>
-<p>donde <span class="math display">\[A_{ij}\]</span> es la matriz que se obtiene al eliminar la columna <span class="math display">\[j\]</span> y la fila <span class="math display">\[i\]</span>, es un procedimiento que necesita de muchas operaciones.</p>
+<p>donde <span class="math inline">\(A_{ij}\)</span> es la matriz que se obtiene al eliminar la columna <span class="math inline">\(j\)</span> y la fila <span class="math inline">\(i\)</span>, es un procedimiento que necesita de muchas operaciones.</p>
 <p><strong>Ejercicio 1.</strong><br />
-Cuantas operaciones algebraícas se utilizan para calcular un determinante de <span class="math display">\[2\times 2\]</span>, <span class="math display">\[3\times 3\]</span>, <span class="math display">\[4\times 4\]</span>, <span class="math display">\[5\times 5\]</span>. Y en el caso <span class="math display">\[n\times n\]</span>?</p>
-<p>Como resultado del Ejercicio 1, el problema de calcular el determinante de una matriz de <span class="math display">\[100\times 100\]</span> se vuelve intratable si usamos la definición del determinante de más arriba. Sin embargo, veremos formas mucho mas eficientes de calcular el determinante. Existen numerosos problemas en aplicaciones de ingeniería y física donde debemos resolver sistemas lineales de muchas variables <span class="math inline">\(incluso miles o millones de variables\)</span>… <strong>Luego necesitamos aprender a medir cuan rápido es un algoritmo.</strong></p>
+Cuantas operaciones algebraícas se utilizan para calcular un determinante de <span class="math inline">\(2\times 2\)</span>, <span class="math inline">\(3\times 3\)</span>, <span class="math inline">\(4\times 4\)</span>, <span class="math inline">\(5\times 5\)</span>. Y en el caso <span class="math inline">\(n\times n\)</span>?</p>
+<p>Como resultado del Ejercicio 1, el problema de calcular el determinante de una matriz de <span class="math inline">\(100\times 100\)</span> se vuelve intratable si usamos la definición del determinante de más arriba. Sin embargo, veremos formas mucho mas eficientes de calcular el determinante. Existen numerosos problemas en aplicaciones de ingeniería y física donde debemos resolver sistemas lineales de muchas variables <span class="math inline">\(incluso miles o millones de variables\)</span>… <strong>Luego necesitamos aprender a medir cuan rápido es un algoritmo.</strong></p>
 <p><strong>Observación.</strong> Teoricamente, para cada problema existe un algoritmo que requiere el menor número de operaciones posibles. A este número se le conoce como complejidad del algoritmo y se escribe, usualmente, en términos del tamaño del problema a resolver. Más adelante daremos una definición más precisa<br />
 de complejidad.</p>
-<div id="como-resolver-sistemas-triangulares" class="section level3">
-<h3><span class="header-section-number">2.0.1</span> Como resolver sistemas triangulares</h3>
+<div id="como-resolver-sistemas-triangulares" class="section level2">
+<h2><span class="header-section-number">2.1</span> Como resolver sistemas triangulares</h2>
 <p>Estudiemos ahora un caso en principio bastante particular de sistema</p>
 <p><span class="math display">\[
 \begin{array}c
@@ -175,7 +176,7 @@ de complejidad.</p>
 &amp;                   &amp;                    &amp;              &amp; r_{nn}x_n = z_n
 \end{array}
 \]</span></p>
-<p>En notación matricial, <span class="math display">\[Rx = b\]</span> donde la matríz <span class="math display">\[R\]</span> es triangular superior, es decir <span class="math display">\[r_{ij} = 0\]</span> para todo <span class="math display">\[i&gt;j\]</span>. Este sistema se resuelve de manera directa resolviendo la <span class="math display">\[n\]</span>-esima ecuación y reemplazando el valor de <span class="math display">\[x_n\]</span> en la <span class="math display">\[n-1\]</span>-ésima ecuación y así sucesivamente. En fórmulas,</p>
+<p>En notación matricial, <span class="math inline">\(Rx = b\)</span> donde la matríz <span class="math inline">\(R\)</span> es triangular superior, es decir <span class="math inline">\(r_{ij} = 0\)</span> para todo <span class="math inline">\(i&gt;j\)</span>. Este sistema se resuelve de manera directa resolviendo la <span class="math inline">\(n\)</span>-esima ecuación y reemplazando el valor de <span class="math inline">\(x_n\)</span> en la <span class="math inline">\(n-1\)</span>-ésima ecuación y así sucesivamente. En fórmulas,</p>
 <p><span class="math display">\[
 \begin{array}l
 x_n &amp;:= z_n / r_{nn},&amp;\quad \text{si } r_{n,n}\neq 0,\\\\
@@ -184,22 +185,21 @@ x_{n-1}&amp;:= (z_{n-1}-r_{n-1,n}x_n)/r_{n-1,n-1},&amp;\quad\text{si } r_{n-1,n-
 x_{1} &amp;:= (z_1 - r_{12}x_2-\cdots-r_{1n}x_n)/r_{11},&amp;\quad \text{si }r_{11}\neq0.
 \end{array}
 \]</span></p>
-<p>es claro que <span class="math display">\[det(R)=r_{1,1}r_{2,2}\cdots r_{n,n}\]</span>.</p>
-<p><strong>Proposición.</strong> <span class="math display">\[det(R)\neq 0\]</span> si y solo sí <span class="math display">\[r_{i,i}\neq 0\]</span> para todo <span class="math display">\[i\]</span>.</p>
+<p>es claro que <span class="math inline">\(det(R)=r_{1,1}r_{2,2}\cdots r_{n,n}\)</span>.</p>
+<p><strong>Proposición.</strong> <span class="math inline">\(det(R)\neq 0\)</span> si y solo sí <span class="math inline">\(r_{i,i}\neq 0\)</span> para todo <span class="math inline">\(i\)</span>.</p>
 <p>Esto nos dice que las formulas anteriores nos proveen un algoritmo para resolver el sistema exactamente cuando el sistema tiene solución única. El costo de calcular esta solución será:</p>
 <ol style="list-style-type: lower-alpha">
-<li>Para la i-ésima fila, <span class="math display">\[n - i\]</span> sumas , <span class="math display">\[n-i\]</span> multiplicaciones, una división.<br />
+<li>Para la i-ésima fila, <span class="math inline">\(n - i\)</span> sumas , <span class="math inline">\(n-i\)</span> multiplicaciones, una división.<br />
 </li>
-<li>En total tenemos <span class="math display">\[n^2 + o(n^2)\]</span> operaciones.</li>
+<li>En total tenemos <span class="math inline">\(n^2 + o(n^2)\)</span> operaciones.</li>
 </ol>
 <p>Llamaremos <strong>substitución inversa</strong> a esta forma de resolver un sistema triangular superior,<br />
 y por analogía, se pueden resolver sistemas triangulares inferiores usando <strong>substitución directa</strong>.</p>
-<p><strong>Ejercicio.</strong> Escribir las fórmulas de substitución hacia adelante para resolver un sistema <span class="math display">\[Lz=b\]</span> donde <span class="math display">\[L = (l_{ij})\]</span> es una matriz triangular inferior de <span class="math display">\[n\times n\]</span>.</p>
-<p><strong>Observación.</strong> El determinante de una matriz triangular superior de <span class="math display">\[n\times n\]</span> puede ser calculado usando <span class="math display">\[n\]</span> operaciones algebraícas.</p>
-</div>
+<p><strong>Ejercicio.</strong> Escribir las fórmulas de substitución hacia adelante para resolver un sistema <span class="math inline">\(Lz=b\)</span> donde <span class="math inline">\(L = (l_{ij})\)</span> es una matriz triangular inferior de <span class="math inline">\(n\times n\)</span>.</p>
+<p><strong>Observación.</strong> El determinante de una matriz triangular superior de <span class="math inline">\(n\times n\)</span> puede ser calculado usando <span class="math inline">\(n\)</span> operaciones algebraícas.</p>
 <div id="implementando-la-solucion-en-python3." class="section level3">
-<h3><span class="header-section-number">2.0.2</span> Implementando la solución en Python3.</h3>
-<p>Pensemos ahora que queremos resolver el sistema <span class="math display">\[Rx=z\]</span> en el computador. La primera pregunta que nos hacemos es como guardar la matriz <span class="math display">\[R\]</span> y el vector <span class="math display">\[z\]</span>. Este curso está basado en Python3 usando como módulos principales numpy, scipy y matplotlib, luego veremos como generar y acceder matrices en python usando el módulo.</p>
+<h3><span class="header-section-number">2.1.1</span> Implementando la solución en Python3.</h3>
+<p>Pensemos ahora que queremos resolver el sistema <span class="math inline">\(Rx=z\)</span> en el computador. La primera pregunta que nos hacemos es como guardar la matriz <span class="math inline">\(R\)</span> y el vector <span class="math inline">\(z\)</span>. Este curso está basado en Python3 usando como módulos principales numpy, scipy y matplotlib, luego veremos como generar y acceder matrices en python usando el módulo.</p>
 <p><strong>Definición.</strong> Un módulo es un agrupamiento de funciones y objetos de Python con un objetivo cómun.</p>
 <p>Por ejemplo, el módulo numpy contiene todos los objetos y funciones necesarias para poder trabajar en cálculo numérico de manera eficiente. Hay básicamente dos formas de usar los objetos y funciones de un módulo.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np</code></pre></div>
@@ -212,11 +212,11 @@ A <span class="op">=</span> np.array([<span class="dv">1</span>,<span class="dv"
 B <span class="op">=</span> np.zeros(<span class="dv">10</span>)</code></pre></div>
 <p>El nombre <em>np</em> es solo una convención para escribir <em>np.array</em> en vez de <em>numpy.array</em>. La segunda forma importa la definición de array y la agrega al espacio <strong>global</strong>. Esto quiere decir que no es necesario anteponer el <em>np</em> para llamar a array. <strong>Esta forma de importar funciones de numpy no es recomendada para principiantes pues puede generar confusiones.</strong></p>
 <div id="arrays" class="section level4">
-<h4><span class="header-section-number">2.0.2.1</span> Arrays</h4>
-<p>En numpy la mayoría de los datos se guardan usando el tipo <strong>np.array</strong>. Este tipo de objetos representa una tabla <span class="math display">\[n\]</span>-dimensional de datos, donde <span class="math display">\[n\]</span> puede ser arbitrario. Un array tiene las siguiente propiedades o atributos.</p>
+<h4><span class="header-section-number">2.1.1.1</span> Arrays</h4>
+<p>En numpy la mayoría de los datos se guardan usando el tipo <strong>np.array</strong>. Este tipo de objetos representa una tabla <span class="math inline">\(n\)</span>-dimensional de datos, donde <span class="math inline">\(n\)</span> puede ser arbitrario. Un array tiene las siguiente propiedades o atributos.</p>
 <ul>
 <li><p><strong>array.ndim</strong> número de dimensiones del <strong>array</strong>. Usualmente los vectores se representan usando un array con ndim=1 y las matrices usando un array con ndim=2.</p></li>
-<li><p><strong>ndarray.shape</strong> El tamaño o forma del arraglo. Esta es una <span class="math display">\[n\]</span>-tupla indicando el tamaño del array en cada dimensión. Por ejemplo, para una matriz de <span class="math display">\[n\]</span> filas y <span class="math display">\[m\]</span> columnas, <strong>shape</strong> será <span class="math display">\[(n,m)\]</span>. El largo del <strong>shape</strong> siempre será el número de dimensiones, <strong>ndim</strong>.</p></li>
+<li><p><strong>ndarray.shape</strong> El tamaño o forma del arraglo. Esta es una <span class="math inline">\(n\)</span>-tupla indicando el tamaño del array en cada dimensión. Por ejemplo, para una matriz de <span class="math inline">\(n\)</span> filas y <span class="math inline">\(m\)</span> columnas, <strong>shape</strong> será <span class="math inline">\((n,m)\)</span>. El largo del <strong>shape</strong> siempre será el número de dimensiones, <strong>ndim</strong>.</p></li>
 <li><p><strong>ndarray.size</strong> El número total de elementos del array.</p></li>
 <li><p><strong>ndarray.dtype</strong> Descripción del tipo de datos de cada elemento del array. Todos los datos del array son del mismo tipo, por ejemplo, enteros, boolean, floats, etc.</p></li>
 </ul>
@@ -225,7 +225,7 @@ B <span class="op">=</span> np.zeros(<span class="dv">10</span>)</code></pre></d
 
 A <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">1</span>])
 B <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">1</span>],dtype<span class="op">=</span><span class="bu">float</span>)</code></pre></div>
-<p>En el array <span class="math display">\[A\]</span> cada elemento del array será de tipo entero, mientras que en <span class="math display">\[B\]</span> cada elemento será del tipo float. Concentremos nos ahora en arrays 1 y 2 dimensionales y como crearlos. Existen varias funciones para crear arrays, de las cuales solo veremos, por ahora , las básicas. Para más detalles sobre cada función, ver la ayuda de cada una.</p>
+<p>En el array <span class="math inline">\(A\)</span> cada elemento del array será de tipo entero, mientras que en <span class="math inline">\(B\)</span> cada elemento será del tipo float. Concentremos nos ahora en arrays 1 y 2 dimensionales y como crearlos. Existen varias funciones para crear arrays, de las cuales solo veremos, por ahora , las básicas. Para más detalles sobre cada función, ver la ayuda de cada una.</p>
 <ul>
 <li><strong>np.zeros</strong> Crea un array de ceros. <code>python   np.zeros(10)   # Crea un array 1-dimensional de 10 ceros   np.zeros((10,20)) # Crea un array 2-dimensional de 10 filas y 20 columnas de ceros.</code></li>
 <li><strong>np.eye</strong> Crea un array con unos en la diagonal y ceros fuera. <code>python   np.eye(3)          # Crea un array con la matriz identidad de 3x3   np.eye(4,k=1)   np.eye(4,k=-1)</code></li>
@@ -246,13 +246,13 @@ supongamos que</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np    <span class="co"># Dejaremos de escribir esta linea, pero siempre debe ser la primera linea de nuestro programa</span>
 R <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],[<span class="dv">0</span>,<span class="op">-</span><span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>]])
 z <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>])</code></pre></div>
-<p>La pregunta ahora es como transformar las ecuaciones que describen la solución en código. Aquí aparece la primera confusión: <strong>¿Cuanto vale </strong><span class="math display">\[r_{1,2}\]</span><strong>?</strong>. La respuesta es clara, <span class="math display">\[1\]</span> se refiere a la primera fila y <span class="math display">\[2\]</span> se refiere a la segunda columna, luego <span class="math display">\[r_{1,2}=2\]</span>. Sin embargo,<br />
+<p>La pregunta ahora es como transformar las ecuaciones que describen la solución en código. Aquí aparece la primera confusión: <strong>¿Cuanto vale </strong><span class="math inline">\(r_{1,2}\)</span><strong>?</strong>. La respuesta es clara, <span class="math inline">\(1\)</span> se refiere a la primera fila y <span class="math inline">\(2\)</span> se refiere a la segunda columna, luego <span class="math inline">\(r_{1,2}=2\)</span>. Sin embargo,<br />
 en python</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(R[<span class="dv">1</span>,<span class="dv">2</span>])</code></pre></div>
-<p>imprimirá <span class="math display">\[1\]</span>.</p>
-<p><strong>IMPORTANTE.</strong> En Python3, los índices siempre parten desde <span class="math display">\[0\]</span>! Esto significa que la primera fila corresponde a la fila <span class="math display">\[0\]</span>, luego para acceder al elemento en la primera fila y segunda columna deberemos ejecutar</p>
+<p>imprimirá <span class="math inline">\(1\)</span>.</p>
+<p><strong>IMPORTANTE.</strong> En Python3, los índices siempre parten desde <span class="math inline">\(0\)</span>! Esto significa que la primera fila corresponde a la fila <span class="math inline">\(0\)</span>, luego para acceder al elemento en la primera fila y segunda columna deberemos ejecutar</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(R[<span class="dv">0</span>,<span class="dv">1</span>])</code></pre></div>
-<p>Podemos ahora implementar nuestra solución cuando <span class="math display">\[n = 3\]</span>. Antes debemos sí re-escribir las ecuaciones de la solución</p>
+<p>Podemos ahora implementar nuestra solución cuando <span class="math inline">\(n = 3\)</span>. Antes debemos sí re-escribir las ecuaciones de la solución</p>
 <p><span class="math display">\[
 \begin{array}l
 x_3 &amp;=z_3/r_{33}\\
@@ -260,26 +260,26 @@ x_2 &amp;=(z_2-r_{23}x_3)/r_{22}\\
 x_1 &amp;= (z_1 - r_{12}x_2-r_{13}x_3)/r_{11}
 \end{array}
 \]</span></p>
-<p>Ahora debemos transformar estas ecuaciones en un programa. Una nueva pregunta que aparece es como generar el vector <span class="math display">\[x\]</span>. La convención usual es crear el vector <span class="math display">\[x\]</span> como un array del tamaño correcto con puros ceros usando la función <em>np.array</em> y luego calcular cada valor de <span class="math display">\[x_i\]</span>.</p>
+<p>Ahora debemos transformar estas ecuaciones en un programa. Una nueva pregunta que aparece es como generar el vector <span class="math inline">\(x\)</span>. La convención usual es crear el vector <span class="math inline">\(x\)</span> como un array del tamaño correcto con puros ceros usando la función <em>np.array</em> y luego calcular cada valor de <span class="math inline">\(x_i\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> np.zeros(<span class="dv">3</span>)
 x[<span class="dv">2</span>] <span class="op">=</span> z[<span class="dv">2</span>]<span class="op">/</span>R[<span class="dv">2</span>,<span class="dv">2</span>]
 x[<span class="dv">1</span>] <span class="op">=</span> (z[<span class="dv">1</span>]<span class="op">-</span>R[<span class="dv">1</span>,<span class="dv">2</span>]<span class="op">*</span>x[<span class="dv">2</span>])<span class="op">/</span>R[<span class="dv">1</span>,<span class="dv">1</span>]
 x[<span class="dv">0</span>] <span class="op">=</span> (z[<span class="dv">0</span>]<span class="op">-</span>R[<span class="dv">0</span>,<span class="dv">1</span>]<span class="op">*</span>x[<span class="dv">1</span>]<span class="op">-</span>R[<span class="dv">0</span>,<span class="dv">2</span>]<span class="op">*</span>x[<span class="dv">2</span>])<span class="op">/</span>R[<span class="dv">0</span>,<span class="dv">0</span>]</code></pre></div>
-<p><strong>Es importante observar como cambian los índices entre la matemática y Python. Para evitar esta diferencia, podemos <span class="math inline">\(casi siempre\)</span> escribir la matemática usando indices que comiencen en </strong><span class="math display">\[0\]</span></p>
-<p>El código de más arriba es correcto pero solo funcionará cuando el tamaño <span class="math display">\[n\]</span> sea igual a <span class="math display">\[3\]</span>. Si <span class="math display">\[n\]</span> fuera igual a <span class="math display">\[100\]</span> y quisieramos escribir un código analogo, tendríamos que escribir un código de 100 lineas!!! Más aún, que pasa si no conocemos <span class="math display">\[n\]</span> al momento de diseñar nuestro programa. Recordemos que de la fórmula de substitución inversa tenemos</p>
+<p><strong>Es importante observar como cambian los índices entre la matemática y Python. Para evitar esta diferencia, podemos <span class="math inline">\(casi siempre\)</span> escribir la matemática usando indices que comiencen en </strong><span class="math inline">\(0\)</span>$</p>
+<p>El código de más arriba es correcto pero solo funcionará cuando el tamaño <span class="math inline">\(n\)</span> sea igual a <span class="math inline">\(3\)</span>. Si <span class="math inline">\(n\)</span> fuera igual a <span class="math inline">\(100\)</span> y quisieramos escribir un código analogo, tendríamos que escribir un código de 100 lineas!!! Más aún, que pasa si no conocemos <span class="math inline">\(n\)</span> al momento de diseñar nuestro programa. Recordemos que de la fórmula de substitución inversa tenemos</p>
 <p><span class="math display">\[
 x_{i} = (z_i - r_{i,i+1}x_{i+1}-\cdots-r_{i,n}x_n)/r_{i,i}
-\]</span> que puede ser re-escrita como sumatoria: <span class="math display">\[
+\]</span> que puede ser re-escrita como sumatoria: <span class="math display">\[$
 x_i = (z_i - \sum_{j=i+1}^n r_{i,j}x_j) / r_{i,i}
-\]</span></p>
+\]</span>$</p>
 <p>Esta sumatoria puede ser calculada en Python usando la directiva <strong>for</strong> y la función <strong>range</strong>.</p>
 <hr />
-<p><strong>range<span class="math inline">\(a,b,s\)</span>.</strong> genera una progresión aritmética <span class="math display">\[a,a+s,a+2s,\cdots,a+ks\]</span>, donde <span class="math display">\[k\]</span> es el número más grande tal que <span class="math display">\[a + ks &lt; b\]</span> cuando <span class="math display">\[s\]</span> es positivo ó <span class="math display">\[a + ks &gt; b\]</span> cuando <span class="math display">\[s\]</span> es negativo. <em><strong> </strong>for.<strong> nos permite iterar el valor de un <em>nombre</em> <span class="math inline">\(variable\)</span> desde una secuencia. </strong></em> Podemos ahora calcular la sumatoria:</p>
+<p><strong>range<span class="math inline">\(a,b,s\)</span>.</strong> genera una progresión aritmética <span class="math inline">\(a,a+s,a+2s,\cdots,a+ks\)</span>, donde <span class="math inline">\(k\)</span> es el número más grande tal que <span class="math inline">\(a + ks &lt; b\)</span> cuando <span class="math inline">\(s\)</span> es positivo ó <span class="math inline">\(a + ks &gt; b\)</span> cuando <span class="math inline">\(s\)</span> es negativo. <em><strong> </strong>for.<strong> nos permite iterar el valor de un <em>nombre</em> <span class="math inline">\(variable\)</span> desde una secuencia. </strong></em> Podemos ahora calcular la sumatoria:</p>
 <div class="sourceCode"><pre class="sourceCode py"><code class="sourceCode python">x[i] <span class="op">=</span> z[i]
 <span class="cf">for</span> j <span class="op">in</span> <span class="bu">range</span>(i<span class="dv">+1</span>,n):   <span class="co"># los indices parten de cero.</span>
   x[i] <span class="op">-=</span> R[i,j]<span class="op">*</span>x[j]
 x[i] <span class="op">/=</span> R[i,i]</code></pre></div>
-<p>Ahora que tenemos un algoritmo para calcular <span class="math display">\[x_i\]</span> necesitamos calcular <span class="math display">\[x_i\]</span> para todo <span class="math display">\[i\]</span>, pero desde abajo! Además necesitamos calcular <span class="math inline">\(n\)</span>, que corresponde al número de filas de <span class="math display">\[R\]</span>. Este se puede obtener usando la propiedad <strong>array.shape</strong>. El programa completo queda:</p>
+<p>Ahora que tenemos un algoritmo para calcular <span class="math inline">\(x_i\)</span> necesitamos calcular <span class="math inline">\(x_i\)</span> para todo <span class="math inline">\(i\)</span>, pero desde abajo! Además necesitamos calcular <span class="math inline">\(n\)</span>, que corresponde al número de filas de <span class="math inline">\(R\)</span>. Este se puede obtener usando la propiedad <strong>array.shape</strong>. El programa completo queda:</p>
 <div class="sourceCode"><pre class="sourceCode py"><code class="sourceCode python"><span class="im">import</span> numpy <span class="im">as</span> np
 R <span class="op">=</span> np.array([[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],[<span class="dv">0</span>,<span class="op">-</span><span class="dv">3</span>,<span class="dv">1</span>],[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">2</span>]])
 z <span class="op">=</span> np.array([<span class="dv">0</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>])
@@ -294,11 +294,11 @@ x <span class="op">=</span> np.zeros(n)
 </div>
 </div>
 <div id="eliminacion-gaussiana" class="section level3">
-<h3><span class="header-section-number">2.0.3</span> Eliminación Gaussiana</h3>
+<h3><span class="header-section-number">2.1.2</span> Eliminación Gaussiana</h3>
 <p>Ahora recordemos el proceso de eliminación Gaussiana, que viene a ser el método más eficiente, entre los métodos clásicos, para resolver sistemas de ecuaciones lineales. Carl Friedrich Gauss <span class="math inline">\(1777-1855\)</span> describe este método en su trabajo <em>Theoria Motus Corporum Coelestium</em> <span class="math inline">\(1809\)</span><br />
 &quot; Los valores pueden ser obtenidos usando el método de eliminación usual &quot;<br />
 Sin embargo, se sabe que el método de eliminación ya era conocido por J.L. Lagrange en 1759 e incluso se conocía en China al menos en el siglo primero d.C.</p>
-<p>Volvamos a considerar el sistema general (a partir de ahora consideramos los índices, cuando sea posible, partiendo de <span class="math display">\[0\]</span>)</p>
+<p>Volvamos a considerar el sistema general (a partir de ahora consideramos los índices, cuando sea posible, partiendo de <span class="math inline">\(0\)</span>)</p>
 <p><span class="math display">\[
 \begin{array}c
 a_{00}x_0&amp;+a_{01}x_1&amp;+\cdots &amp;+ a_{0,n-1}x_{n-1} = b_0\\
@@ -306,7 +306,7 @@ a_{10}x_0&amp;+a_{11}x_2&amp;+\cdots &amp;+ a_{1,n-1}x_{n-1} = b_2\\
 &amp;&amp;\vdots\\
 a_{n-1,1}x_1&amp;+a_{n-1,2}x_2&amp;+\cdots &amp;+ a_{n-1,n-1}x_{n-1} = b_n
 \end{array}
-\]</span> y tratemos de transformarlo en un sistema <span class="math inline">\(equivalente\)</span> triangular superior. La idea es manipular el sistema de manera que los coeficientes <span class="math display">\[a_{21}\]</span> hasta <span class="math display">\[a_{n1}\]</span> se anulen. <span class="math inline">\(De ahi el nombre de **eliminación** del método\)</span><br />
+\]</span> y tratemos de transformarlo en un sistema <span class="math inline">\(equivalente\)</span> triangular superior. La idea es manipular el sistema de manera que los coeficientes <span class="math inline">\(a_{21}\)</span> hasta <span class="math inline">\(a_{n1}\)</span> se anulen. <span class="math inline">\(De ahi el nombre de **eliminación** del método\)</span><br />
 Consecuentemente obtenemos <span class="math display">\[
 \begin{array}c
 a_{00}x_0+&amp;a_{01}x_1+\cdots + a_{0,n-1}x_{n-1} = b_0&#39; \\
@@ -315,23 +315,18 @@ a_{00}x_0+&amp;a_{01}x_1+\cdots + a_{0,n-1}x_{n-1} = b_0&#39; \\
 &amp;a_{n-1,1}&#39;x_1+\cdots + a_{n-1,n-1}&#39;x_{n-1} = b_{n-1}&#39;
 \end{array}
 \]</span></p>
-<p>La nueva matriz <span class="math display">\[A&#39;\]</span> es el resultado de <strong>pivotear la columna 0</strong> usando la fila 0 como <strong>pivote</strong>. Veamos como implementar este método: Para eliminar el término <span class="math display">\[a_{i0}x_0\]</span> de la fila <span class="math display">\[i\]</span> le restaremos un múltiplo de la fila <span class="math display">\[0\]</span>, es decir, <span class="math display">\[
+<p>La nueva matriz <span class="math inline">\(A&#39;\)</span> es el resultado de <strong>pivotear la columna 0</strong> usando la fila 0 como <strong>pivote</strong>. Veamos como implementar este método: Para eliminar el término <span class="math inline">\(a_{i0}x_0\)</span> de la fila <span class="math inline">\(i\)</span> le restaremos un múltiplo de la fila <span class="math inline">\(0\)</span>, es decir, <span class="math display">\[
 \text{nueva fila }i := \text{fila }i - l_{i1}\cdot  \text{fila }0.
-\]</span> Explicitamente,<br />
-<span class="math display">\[
-a_{ij}&#39; = a_{ij} - l_{i0}a_{0j}\qquad\forall j\in\{0,\ldots,n-1\}
-\]</span>y<span class="math display">\[
-b_i&#39; = b_i  - l_{i0}b_1
-\]</span> Para calcular <span class="math display">\[l_{i0}\]</span> imponemos la condición <span class="math display">\[a_{i0}-l_{i0}a_{00}=0\]</span>, de donde se obtiene que<br />
-<span class="math display">\[
-l_{i0}=a_{i0}/a_{00}
-\]</span> Luego podemos realizar este proceso si y solo sí suponemos que el <strong>pivote</strong> <span class="math display">\[a_{00}\]</span> es distinto de <span class="math display">\[0\]</span>. Las ecuaciones para <span class="math display">\[a_{i,j}&#39;\]</span> se traducen en python de manera bastante directa:</p>
+$ Explicitamente,  
+\]</span> a_{ij}‘= a_{ij} - l_{i0}a_{0j}j{0,,n-1} <span class="math inline">\(y\)</span>$ b_i’ = b_i - l_{i0}b_1 <span class="math display">\[
+Para calcular $l_{i0}$ imponemos la condición  $a_{i0}-l_{i0}a_{00}=0$, de donde se obtiene que  
+\]</span> l_{i0}=a_{i0}/a_{00} $$ Luego podemos realizar este proceso si y solo sí suponemos que el <strong>pivote</strong> <span class="math inline">\(a_{00}\)</span> es distinto de <span class="math inline">\(0\)</span>. Las ecuaciones para <span class="math inline">\(a_{i,j}&#39;\)</span> se traducen en python de manera bastante directa:</p>
 <div class="sourceCode"><pre class="sourceCode py"><code class="sourceCode python"><span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(<span class="dv">1</span>,n):
   l[i,<span class="dv">0</span>] <span class="op">=</span> A[i,<span class="dv">0</span>] <span class="op">/</span> A[<span class="dv">0</span>,<span class="dv">0</span>]
   <span class="cf">for</span> j <span class="op">in</span> <span class="bu">range</span>(<span class="dv">0</span>,n):
     A[i,j] <span class="op">=</span> A[i,j] <span class="op">-</span> l[i,<span class="dv">0</span>]<span class="op">*</span>A[<span class="dv">0</span>,j]</code></pre></div>
-<p><strong>Importante.</strong> Aún no hemos definido nuestra matriz <span class="math display">\[l\]</span>, luego la linea donde usamos <span class="math display">\[l_{i0}\]</span> generará un error en python. Otro problema es que estamos guardando el resultado del cálculo en el mismo array <span class="math display">\[A\]</span>.</p>
-<p>Después de este paso del método de eliminación, obtenemos una submatriz de <span class="math display">\[(n-1)\times (n-1)\]</span> en las filas 2 a las <span class="math display">\[n\]</span>. Es decir, tenemos la situación inicial pero con un tamaño menor. Así, podemos aplicar recursivamente el método para encontrar una secuencia de matrices</p>
+<p><strong>Importante.</strong> Aún no hemos definido nuestra matriz <span class="math inline">\(l\)</span>, luego la linea donde usamos <span class="math inline">\(l_{i0}\)</span> generará un error en python. Otro problema es que estamos guardando el resultado del cálculo en el mismo array <span class="math inline">\(A\)</span>.</p>
+<p>Después de este paso del método de eliminación, obtenemos una submatriz de <span class="math inline">\((n-1)\times (n-1)\)</span> en las filas 2 a las <span class="math inline">\(n\)</span>. Es decir, tenemos la situación inicial pero con un tamaño menor. Así, podemos aplicar recursivamente el método para encontrar una secuencia de matrices</p>
 <p><span class="math display">\[
  A = A^{(1)}\rightarrow  A^{(1)} \rightarrow \cdots \rightarrow A^{(n)} =: R
 \]</span></p>
@@ -340,9 +335,10 @@ sdsdsds d</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> i <span class="op">in</span> <span class="bu">range</span>(<span class="dv">1</span>:n):
     blabla
 sdsd sd</code></pre></div>
-<p>Luego, podemos aplicar este método recursivamente a las últimas <span class="math display">\[n-1\]</span> filas para obtener un sistema triangular superior. Esto quiere decir que solo necesitamos entender como<br />
+<p>Luego, podemos aplicar este método recursivamente a las últimas <span class="math inline">\(n-1\)</span> filas para obtener un sistema triangular superior. Esto quiere decir que solo necesitamos entender como<br />
 como transformar el sistema <span class="math inline">\(_\)</span> en el sistema <span class="math inline">\(\*_\)</span>. s</p>
 
+</div>
 </div>
 </div>
             </section>
